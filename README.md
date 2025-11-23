@@ -13,9 +13,7 @@
 
 # Circuit Diagram:
 
----
-To upload
---
+<img width="725" height="453" alt="image" src="https://github.com/user-attachments/assets/61f937fa-553d-4e84-9fb3-1606dd87eb1b" />
 
 # Procedure // Modify the procedure based on your circuit
 
@@ -56,13 +54,42 @@ Step 7: Save Your Work
 
 
 # Program
-
----
-To upload
---
+```
+const int analogIn = A0;
+int humiditysensorOutput = 0;
+// Defining Variables
+int RawValue= 0;
+double Voltage = 0;
+double tempC = 0;
+double tempF = 0;
+void setup(){
+ Serial.begin(9600);
+ pinMode(A1, INPUT);
+}
+void loop(){
+ RawValue = analogRead(analogIn);
+ Voltage = (RawValue / 1023.0) * 5000; // 5000 to get millivots.
+ tempC = (Voltage-500) * 0.1; // 500 is the offset
+ tempF = (tempC * 1.8) + 32; // convert to F
+ Serial.print("Raw Value = " );
+ Serial.print(RawValue);
+ Serial.print("\t milli volts = ");
+ Serial.print(Voltage,0); //
+ Serial.print("\t Temperature in C = ");
+ Serial.print(tempC,1);
+ Serial.print("\t Temperature in F = ");
+ Serial.println(tempF,1);
+ humiditysensorOutput = analogRead(A1);
+ Serial.print("Humidity: "); // Printing out Humidity Percentage
+ Serial.print(map(humiditysensorOutput, 0, 1023, 10, 70));
+ Serial.println("%");
+ delay(5000); //iterate every 5 seconds
+}
+```
+# Output 
+<img width="1010" height="247" alt="image" src="https://github.com/user-attachments/assets/1ad70056-f49a-482f-a547-38feb93a936b" />
 
 # Result
+Thus,the Temperature using DHT11/DHT22/TMP36 sensor with Arduino UNO Board/ESP-32 using Tinker CAD are verified.
 
----
-To upload
---
+
